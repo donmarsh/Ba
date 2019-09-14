@@ -1,14 +1,11 @@
 package dao;
 
-import models.Teacher;
-import models.Content;
-import models.Course;
-import models.University;
 import models.Note;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 import org.sql2o.Sql2oException;
 import java.util.List;
+import java.util.ArrayList;
 
 public class Sql2oNoteDao implements NoteDao {
   private final Sql2o sql2o;
@@ -19,11 +16,17 @@ public class Sql2oNoteDao implements NoteDao {
     String sql = "INSERT INTO notes (heading, description, universityid, courseid, notepicture, teacherid, contentid) VALUES (:heading, :description, :universityid, :courseid, :notepicture, :teacherid, :contentid)"; //if you change your model, be sure to update here as well!
     try (Connection con = sql2o.open()) {
       int id = (int) con.createQuery(sql, true)
-      .bind(note)
+      .addParameter("heading", note.getHeading())
+        .addParameter("description", note.getDescription())
+        .addParameter("universityid", note.getUniversityId())
+        .addParameter("courseid", note.getCourseId())
+        .addParameter("notepicture", note.getNotePicture())
+        .addParameter("teacherid", note.getTeacherId())
+        .addParameter("contentid", note.getContentId())
        .executeUpdate()
        .getKey();
         note.setId(id);
-      
+
     } catch (Sql2oException ex) {
       System.out.println(ex);
     }

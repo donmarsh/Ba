@@ -1,10 +1,6 @@
 package dao;
 
 import models.Note;
-import models.Teacher;
-import models.Content;
-import models.Course;
-import models.University;
 import java.util.List;
 
 public interface NoteDao {

@@ -39,10 +39,12 @@ public static void main(String[] args) {
      Note note = gson.fromJson(req.body(), Note.class);
        noteDao.add(note);
        res.status(201);
+       res.type("application/json");
        return gson.toJson(note);
    });
 
    get("/notes", "application/json", (req, res) -> { //accept a request in format JSON from an app
+     res.type("application/json");
      return gson.toJson(noteDao.getAll());//send it back to be displayed
    });
 
