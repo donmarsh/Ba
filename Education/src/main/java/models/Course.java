@@ -10,11 +10,9 @@ import java.util.Objects;
 public class Course {
   private int id;
   private String major;
-  private String speciality;
 
-  public Course(String major, String speciality){
+  public Course(String major){
     this.major = major;
-    this.speciality = speciality;
   }
 
   @Override
@@ -32,9 +30,6 @@ public class Course {
      return major;
    }
 
-   public String getSpeciality() {
-     return speciality;
-   }
 
    public int getId() {
        return id;
@@ -44,9 +39,6 @@ public class Course {
      this.major = major;
    }
 
-   public void setSpeciality(String speciality) {
-     this.speciality = speciality;
-   }
 
    public void setId(int id) {
        this.id = id;

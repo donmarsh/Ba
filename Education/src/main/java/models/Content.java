@@ -7,56 +7,42 @@ import java.util.Objects;
 
 public class Content {
   private int id;
-  private String wordLink;
-  private String powerpointLink;
-  private String pdfLink;
+  private String filename;
 
-  public Content(String wordLink, String powerpointLink, String pdfLink){
-    this.wordLink = wordLink;
-    this.powerpointLink = powerpointLink;
-    this.pdfLink = pdfLink;
+  public Content(String filename){
+    this.filename = filename;
+  }
+  //lecture
+  //description
+  //video
+  //slide
+  //document
+
+  @Override
+  public boolean equals(Object otherContent){
+    if (!(otherContent instanceof Content)) {
+      return false;
+    } else {
+      Content newContent = (Content) otherContent;
+      return this.getFileName().equals(newContent.getFileName()) &&
+      this.getId() == newContent.getId();
+    }
   }
 
-   public String getPowerpointLink() {
-     return powerpointLink;
-   }
-
-   public String getPdfLink() {
-     return pdfLink;
-   }
-
-   public String getWordLink() {
-     return wordLink;
+   public String getFileName() {
+     return filename;
    }
 
    public int getId() {
-      return this.id = id;
+      return id;
    }
 
-   public void setPowerpointLink(String powerpointLink) {
-     this.powerpointLink = powerpointLink;
-   }
-
-   public void setPdfLink(String pdfLink) {
-     this.pdfLink = pdfLink;
-   }
-
-   public void setWordLink(String wordLink) {
-     this.wordLink = wordLink;
+   public void setFileName(String filename) {
+     this.filename = filename;
    }
 
    public void setId(int id) {
        this.id = id;
    }
 
-   @Override
-   public boolean equals(Object otherContent){
-     if (!(otherContent instanceof Content)) {
-       return false;
-     } else {
-       Content newContent = (Content) otherContent;
-       return this.getPdfLink().equals(newContent.getPdfLink()) &&
-       this.getId() == newContent.getId();
-     }
-   }
  }

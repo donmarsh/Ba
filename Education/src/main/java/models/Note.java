@@ -15,16 +15,20 @@ public class Note {
   private int courseid;
   private String notepicture;
   private int teacherid;
-  private int contentid;
+  private String requirement;
+  private int lectureid;
+  private int unitid;
 
-  public Note(String heading, String description, int universityid, int courseid, String notepicture, int teacherid, int contentid){
+  public Note(String heading, String description, int universityid, int courseid, String notepicture, int teacherid, String requirement, int lectureid, int unitid){
     this.heading = heading;
     this.description = description;
     this.universityid = universityid;
     this.courseid = courseid;
     this.notepicture = notepicture;
     this.teacherid = teacherid;
-    this.contentid = contentid;
+    this.requirement = requirement;
+    this.lectureid = lectureid;
+    this.unitid = unitid;
   }
 
   @Override
@@ -36,8 +40,8 @@ public class Note {
       return this.getHeading().equals(newNote.getHeading()) &&
       this.getId() == newNote.getId() &&
       this.getUniversityId() == newNote.getUniversityId()&&
-      this.getTeacherId() == newNote.getTeacherId() &&
-      this.getContentId() == newNote.getContentId();
+      this.getLectureId() == newNote.getLectureId()&&
+      this.getTeacherId() == newNote.getTeacherId();
     }
   }
 
@@ -65,12 +69,20 @@ public class Note {
      return teacherid;
    }
 
-   public int getContentId() {
-     return contentid;
+   public int getUnitId() {
+     return unitid;
    }
 
    public int getId() {
      return id;
+   }
+
+   public String getRequirement() {
+     return requirement;
+   }
+
+   public int getLectureId() {
+     return lectureid;
    }
 
    public void setHeading(String heading) {
@@ -93,8 +105,16 @@ public class Note {
         this.teacherid = teacherid;
     }
 
-    public void setContentId(int contentid) {
-        this.contentid = contentid;
+    public void setRequirement(String requirement) {
+        this.requirement = requirement;
+    }
+
+    public void setLectureId(int lectureid) {
+        this.lectureid = lectureid;
+    }
+
+    public void setUnitId(int unitid) {
+        this.unitid = unitid;
     }
 
     public void setId(int id) {

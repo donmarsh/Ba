@@ -12,12 +12,15 @@ public class Sql2oUniversityDao implements UniversityDao {
 
   @Override
   public void add(University university) {
-    String sql = "INSERT INTO universities (name, description, location) VALUES (:name, :description, :location)"; //if you change your model, be sure to update here as well!
+    String sql = "INSERT INTO universities (name, description, location, logo) VALUES (:name, :description, :location, :logo)"; //if you change your model, be sure to update here as well!
     try (Connection con = sql2o.open()) {
       int id = (int) con.createQuery(sql, true)
-              .bind(university)
-              .executeUpdate()
-              .getKey();
+      .addParameter("name", university.getName())
+      .addParameter("description", university.getDescription())
+      .addParameter("location", university.getLocation())
+      .addParameter("logo", university.getLogo())
+      .executeUpdate()
+      .getKey();
       university.setId(id);
     } catch (Sql2oException ex) {
       System.out.println(ex);

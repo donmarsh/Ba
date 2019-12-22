@@ -15,7 +15,7 @@ public interface ContentDao {
   // List<Foodtype> getAllFoodtypesForARestaurant(int restaurantId);
 
   //update
-  //void update(int id, String major, String speciality);
+  void update(int id, String filename);
 
   //delete
   void deleteById(int id);

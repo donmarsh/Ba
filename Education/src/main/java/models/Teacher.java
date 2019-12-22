@@ -8,41 +8,55 @@ import org.sql2o.*;
 
 public class Teacher {
   private int id;
-  private String name;
+  private String firstname;
+  private String lastname;
   private String email;
   private int universityid;
   private int courseid;
   private int staffnumber;
   private String profilepicture;
-  private String educationlevel;
+  private int educationlevelid;
   private String location;
-  private String gender ;
+  private int genderid ;
   private Date dateofbirth;
+  private String password;
 
-  public Teacher(String name, String email, int universityid, int courseid, int staffnumber, String profilepicture, String educationlevel, String location, String gender, Date dateofbirth){
-    this.name = name;
+  public Teacher(String firstname, String lastname, String email, int universityid, int courseid, int staffnumber, String profilepicture, int educationlevelid, String location, int genderid, Date dateofbirth, String password){
+    this.firstname = firstname;
+    this.lastname = lastname;
     this.email = email;
     this.universityid = universityid;
     this.courseid = courseid;
     this.staffnumber = staffnumber;
     this.profilepicture = profilepicture;
-    this.educationlevel = educationlevel;
+    this.educationlevelid = educationlevelid;
     this.location = location;
-    this.gender = gender;
+    this.genderid = genderid;
     this.dateofbirth = dateofbirth;
+    this.password = password;
   }
 
   @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Teacher)) return false;
-        Teacher teacher = (Teacher) o;
-        return id == teacher.id &&
-                Objects.equals(name, teacher.name);
+  public boolean equals(Object otherTeacher){
+    if (!(otherTeacher instanceof Teacher)) {
+      return false;
+    } else {
+      Teacher newTeacher = (Teacher) otherTeacher;
+      return this.getFirstName().equals(newTeacher.getFirstName()) &&
+      this.getLastName().equals(newTeacher.getLastName()) &&
+      this.getId() == newTeacher.getId() &&
+      this.getUniversityId() == newTeacher.getUniversityId()&&
+      this.getGenderId() == newTeacher.getGenderId() &&
+      this.getUniversityId() == newTeacher.getUniversityId();
     }
+  }
 
-   public String getName() {
-     return name;
+   public String getFirstName() {
+     return firstname;
+   }
+
+   public String getLastName() {
+     return lastname;
    }
 
    public String getEmail() {
@@ -53,7 +67,7 @@ public class Teacher {
      return universityid;
    }
 
-   public int getCourseid() {
+   public int getCourseId() {
      return courseid;
    }
 
@@ -65,27 +79,35 @@ public class Teacher {
      return profilepicture;
    }
 
-   public String getEducationLevel() {
-     return educationlevel;
+   public int getEducationLevelId() {
+     return educationlevelid;
    }
 
    public String getLocation() {
      return location;
    }
 
-   public String getGender() {
-     return gender;
+   public int getGenderId() {
+     return genderid;
    }
 
     public Date getDateOfBirth() {
         return dateofbirth;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
     public int getId() {
         return id;
     }
-    public void setName(String name) {
-      this.name = name;
+    public void setFirstName(String firstname) {
+      this.firstname = firstname;
+    }
+
+    public void setLastName(String lastname) {
+      this.lastname = lastname;
     }
 
     public void setEmail(String email) {
@@ -108,20 +130,24 @@ public class Teacher {
       this.profilepicture = profilepicture;
     }
 
-    public void setEducationLevel(String educationlevel) {
-      this.educationlevel = educationlevel;
+    public void setEducationLevelId(int educationlevelid) {
+      this.educationlevelid = educationlevelid;
     }
 
     public void setLocation(String location) {
       this.location = location;
     }
 
-    public void setGender(String gender) {
-      this.gender = gender;
+    public void setGenderId(int genderid) {
+      this.genderid = genderid;
     }
 
      public void setDateOfBirth(Date dateofbirth) {
          this.dateofbirth = dateofbirth;
+     }
+
+     public void setPassword(String password) {
+         this.password = password;
      }
 
      public void setId(int id) {

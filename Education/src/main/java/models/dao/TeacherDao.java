@@ -4,11 +4,14 @@ import java.util.Date;
 import java.text.SimpleDateFormat;
 import models.Teacher;
 import java.util.List;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 public interface TeacherDao {
 
   //create
-  void add (Teacher teacher);
+  JSONObject add (Teacher teacher);
+  String login (String email, String password);
   // void addRestaurantToFoodType(Restaurant restaurant, Foodtype foodtype)
 
   //read
@@ -17,9 +20,10 @@ public interface TeacherDao {
   // List<Foodtype> getAllFoodtypesForARestaurant(int restaurantId);
 
   //update
-  //void update(int id, String name, String email, int universityId, int courseId, int staffNumber, String profilePicture, String educationLevel, String location, String gender, Date dateOfBirth);
+//  void update(int id, String firstname, String lastname, String email, int universityid, int courseid, int staffnumber, String profilepicture, String educationlevel, String location, String gender, Date dateOfBirth, String password);
 
   //delete
   void deleteById(int id);
   void clearAll();
+
 }

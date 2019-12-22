@@ -10,11 +10,13 @@ public class University {
   private String name;
   private String description;
   private String location;
+  private String logo;
 
-  public University(String name, String description, String location){
+  public University(String name, String description, String location, String logo){
     this.name = name;
     this.description = description;
     this.location = location;
+    this.logo = logo;
 
   }
   @Override
@@ -40,6 +42,10 @@ public class University {
      return location;
    }
 
+   public String getLogo() {
+     return logo;
+   }
+
    public int getId() {
        return id;
    }
@@ -53,6 +59,10 @@ public class University {
 
    public void setLocation(String location) {
      this.location = location;
+   }
+
+   public void setLogo(String logo) {
+     this.logo = logo;
    }
 
    public void setId(int id) {

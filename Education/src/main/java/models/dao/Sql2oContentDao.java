@@ -5,6 +5,7 @@ import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 import org.sql2o.Sql2oException;
 import java.util.List;
+import java.util.ArrayList;
 
 public class Sql2oContentDao implements ContentDao {
   private final Sql2o sql2o;
@@ -12,12 +13,12 @@ public class Sql2oContentDao implements ContentDao {
 
   @Override
   public void add(Content content) {
-    String sql = "INSERT INTO contents (note_id, powerpoint_link, word_link, pdf_link) VALUES (:noteId, :wordLink, :powerpointLink, :pdfLink)";
+    String sql = "INSERT INTO contents (filename) VALUES (:filename)";
     try (Connection con = sql2o.open()) {
       int id = (int) con.createQuery(sql, true)
-              .bind(content)
-              .executeUpdate()
-              .getKey();
+      .addParameter("filename", content.getFileName())
+      .executeUpdate()
+      .getKey();
       content.setId(id);
     } catch (Sql2oException ex) {
       System.out.println(ex);
@@ -40,6 +41,19 @@ public class Sql2oContentDao implements ContentDao {
       .executeAndFetchFirst(Content.class);
     }
   }
+
+  @Override
+    public void update(int id, String filename) {
+        String sql = "UPDATE contents SET (filename) = (:filename) WHERE id=:id"; //CHECK!!!
+        try (Connection con = sql2o.open()) {
+            con.createQuery(sql)
+                    .addParameter("filename", filename)
+                    .addParameter("id", id)
+                    .executeUpdate();
+                  } catch (Sql2oException ex) {
+            System.out.println(ex);
+        }
+      }
 
   @Override
   public void deleteById(int id) {

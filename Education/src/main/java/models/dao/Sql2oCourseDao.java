@@ -12,12 +12,12 @@ public class Sql2oCourseDao implements CourseDao {
 
   @Override
   public void add(Course course) {
-    String sql = "INSERT INTO courses (major, speciality) VALUES (:major, :speciality)"; //if you change your model, be sure to update here as well!
+    String sql = "INSERT INTO courses (major) VALUES (:major)"; //if you change your model, be sure to update here as well!
     try (Connection con = sql2o.open()) {
       int id = (int) con.createQuery(sql, true)
-              .bind(course)
-              .executeUpdate()
-              .getKey();
+      .addParameter("major", course.getMajor())
+      .executeUpdate()
+      .getKey();
       course.setId(id);
     } catch (Sql2oException ex) {
       System.out.println(ex);
