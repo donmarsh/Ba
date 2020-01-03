@@ -55,7 +55,7 @@ public class Sql2oTeacherDao implements TeacherDao {
             .addParameter("password", BCrypt.hashpw(teacher.getPassword(), BCrypt.gensalt()))
             .addParameter("staffnumber", teacher.getStaffNumber())
             .addParameter("courseid", teacher.getCourseId())
-            .addParameter("universityid", teacher.getCourseId())
+            .addParameter("universityid", teacher.getUniversityId())
             .addParameter("educationlevelid", teacher.getEducationLevelId())
             .addParameter("genderid", teacher.getGenderId())
             .executeUpdate()
@@ -80,14 +80,33 @@ public class Sql2oTeacherDao implements TeacherDao {
       //String Email = request.getParameter("email");
 
       try (Connection con = sql2o.open()) {
-        Query query = con.createQuery("SELECT password FROM teachers WHERE email = :email")
+        Query query = con.createQuery("SELECT * FROM teachers WHERE email = :email")
         .addParameter("email", email);
         Table table = query.executeAndFetchTable();
+        System.out.println(email);
 
         List<Map<String, Object>> list = table.asList();
         List<Row> rows = table.rows();
+        if (rows.size()== 0) {
+          return "invalid credentials";
+        }
+        System.out.println(rows.size());
   //      assertEquals("password", list.get(0).get("password"));
         if(BCrypt.checkpw(password, rows.get(0).getString("password"))){
+          // Map<String, String> details = new Map();
+          // details.put("firstname", rows.getString("firstname"));
+          // details.put("lastname", rows.getString("lastname"));
+          // details.put("email", rows.getString("email"));
+          // details.put("universityid", rows.getString("universityid"));
+          // details.put("courseid", rows.getString("courseid"));
+          // details.put("staffnumber", rows.getString("staffnumber"));
+          // details.put("profilepicture", rows.getString("profilepicture"));
+          // details.put("educationlevelid", rows.getString("educationlevelid"));
+          // details.put("genderid", rows.getString("genderid"));
+          //
+          // JSONObject sampleObject = new JSONObject();
+          // sampleObject.put("details", details);
+          // return details;
           return "Request was successful";
         }
         else{

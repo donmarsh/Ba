@@ -46,7 +46,7 @@ public class Sql2oNoteDao implements NoteDao {
   @Override
   public List<Note> getFirstThreeNotes() {
     try (Connection con = sql2o.open()) {
-      return con.createQuery("SELECT heading, courseid, courses.id, courses.speciality FROM notes INNER JOIN courses ON notes.courseid = courses.id WHERE notes.id <= 13")
+      return con.createQuery("select notes.heading, courses.major from notes,courses where notes.courseid  = courses.id")
       .executeAndFetch(Note.class);
     }
   }
@@ -127,7 +127,7 @@ public class Sql2oNoteDao implements NoteDao {
   }
 
   @Override
-  public List<Note> getAllNotesByHeadingAndUniversityId(String heading, int universityid) {
+  public List<Note>getAllNotesByHeadingAndUniversityId(String heading, int universityid) {
     try (Connection con = sql2o.open()) {
       return con.createQuery("SELECT * FROM notes WHERE (heading LIKE :heading) AND universityid = :universityid")
               .addParameter("heading", "%"+heading+"%")

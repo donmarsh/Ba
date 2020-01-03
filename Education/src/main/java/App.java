@@ -54,7 +54,7 @@ public static void main(String[] args) {
   });
   after((Filter) (request, response) -> {
     response.header("Access-Control-Allow-Origin", "*");
-    response.header("Access-Control-Allow-Methods", "GET, OPTIONS, HEAD, PUT, POST");
+    response.header("Access-Control-Allow-Methods", "GET, OPTIONS, HEAD, PUT, POST, DELETE");
     response.header("Access-Control-Allow-Credentials", "true");
     response.header("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
 
@@ -101,16 +101,15 @@ Sql2o sql2o = new Sql2o(connectionString, null, "melvin");  //Ubuntu Sql2o sql2o
      Teacher teacher = gson.fromJson(req.body(), Teacher.class);
        JSONObject response = teacherDao.add(teacher);
        res.status(200);
-
        return gson.toJson(response);
    });
 
    post("/teachers/login", "application/json", (req, res) -> {
     System.out.println(req.body());
      Map map = gson.fromJson(req.body(), Map.class);
-     map.get("email");
-     map.get("password");
-     String response = teacherDao.login("email", "password");
+    String email = (String) map.get("email");
+     String password = (String) map.get("password");
+     String response = teacherDao.login(email, password);
      res.status(200);
      return gson.toJson(response);
    });
@@ -132,7 +131,7 @@ Sql2o sql2o = new Sql2o(connectionString, null, "melvin");  //Ubuntu Sql2o sql2o
 
        return gson.toJson(response);
    });
-  
+
 
    get("/students", "application/json", (req, res) -> { //accept a request in format JSON from an app
      return gson.toJson(studentDao.getAll());//send it back to be displayed
@@ -168,6 +167,8 @@ Sql2o sql2o = new Sql2o(connectionString, null, "melvin");  //Ubuntu Sql2o sql2o
    get("/notes", "application/json", (req, res) -> { //accept a request in format JSON from an app
      String noteHeading = req.queryParams("search");
      System.out.println(noteHeading);
+     
+
      if(noteHeading != null && !noteHeading.isEmpty()){
        return gson.toJson(noteDao.getAllNotesByHeading(noteHeading));
      }
@@ -234,6 +235,12 @@ Sql2o sql2o = new Sql2o(connectionString, null, "melvin");  //Ubuntu Sql2o sql2o
 
   get("/notesall", "application/json", (req, res) -> { //accept a request in format JSON from an app
     return gson.toJson(noteDao.getAll());//send it back to be displayed
+  });
+
+  delete("/notes/:id", (req, res) -> {
+    int id = Integer.parseInt(req.params("id"));
+    noteDao.deleteById(id);
+    return gson.toJson(id);
   });
 
   post("/lectures/new", "application/json", (req, res) -> {
