@@ -1,6 +1,5 @@
-package dao;
+package models.dao;
 
-import models.Universitystudent;
 import java.util.List;
 
 public interface UniversitystudentDao {

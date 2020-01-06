@@ -1,17 +1,17 @@
 import com.google.gson.Gson;
 import exceptions.ApiException;
-import dao.Sql2oCourseDao;
-import dao.Sql2oUnitDao;
-import dao.Sql2oUploadDao;
-import dao.Sql2oContentDao;
-import dao.Sql2oNoteDao;
-import dao.Sql2oTeacherDao;
-import dao.Sql2oUniversityDao;
-import dao.Sql2oEducationlevelDao;
-import dao.Sql2oGenderDao;
-import dao.Sql2oLectureDao;
-import dao.Sql2oEnrolmentDao;
-import dao.Sql2oStudentDao;
+import models.dao.Sql2oCourseDao;
+import models.dao.Sql2oUnitDao;
+import models.dao.Sql2oUploadDao;
+import models.dao.Sql2oContentDao;
+import models.dao.Sql2oNoteDao;
+import models.dao.Sql2oTeacherDao;
+import models.dao.Sql2oUniversityDao;
+import models.dao.Sql2oEducationlevelDao;
+import models.dao.Sql2oGenderDao;
+import models.dao.Sql2oLectureDao;
+import models.dao.Sql2oEnrolmentDao;
+import models.dao.Sql2oStudentDao;
 import models.Note;
 import models.Upload;
 import models.Teacher;
@@ -26,18 +26,15 @@ import models.Lecture;
 import models.Enrolment;
 import models.Student;
 import models.dao.Sql2oReviewDao;
-import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import static spark.Spark.*;
-import com.google.gson.Gson;
 import spark.Filter;
 import spark.Request;
-import spark.Response;
-import org.json.JSONArray;
 import org.json.JSONObject;
+
 
 public class App {
   private static String requestInfo(Request request){
@@ -74,11 +71,10 @@ public static void main(String[] args) {
    Sql2oUploadDao uploadDao;
    Sql2oUnitDao unitDao;
    Sql2oStudentDao studentDao;
-   Connection conn;
    Gson gson = new Gson();
 
    String connectionString = "jdbc:postgresql://localhost:5432/education"; //connect to jadle, not jadle_test!
-Sql2o sql2o = new Sql2o(connectionString, null, "melvin");  //Ubuntu Sql2o sql2o = new Sql2o(connectionString, "user", "1234");
+Sql2o sql2o = new Sql2o(connectionString, "postgres", "postgres");  //Ubuntu Sql2o sql2o = new Sql2o(connectionString, "user", "1234");
 
    courseDao = new Sql2oCourseDao(sql2o);
    reviewDao = new Sql2oReviewDao(sql2o);
@@ -93,8 +89,6 @@ Sql2o sql2o = new Sql2o(connectionString, null, "melvin");  //Ubuntu Sql2o sql2o
    enrolmentDao = new Sql2oEnrolmentDao(sql2o);
    studentDao = new Sql2oStudentDao(sql2o);
    unitDao = new Sql2oUnitDao(sql2o);
-   conn = sql2o.open();
-
 
    post("/teachers/new", "application/json", (req, res) -> {
     System.out.println(req.body());
@@ -199,7 +193,7 @@ Sql2o sql2o = new Sql2o(connectionString, null, "melvin");  //Ubuntu Sql2o sql2o
    });
 
    get("/notestopthree", "application/json", (req, res) -> { //accept a request in format JSON from an app
-     return gson.toJson(noteDao.getFirstThreeNotes());//send it back to be displayed
+    return gson.toJson(noteDao.getFirstThreeNotes());//send it back to be displayed
    });
 
    get("/notes/:id", "application/json", (req, res) -> {

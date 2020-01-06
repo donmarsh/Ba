@@ -1,4 +1,4 @@
-package dao;
+package models.dao;
 
 import models.Content;
 import org.sql2o.Connection;

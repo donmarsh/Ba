@@ -1,7 +1,8 @@
-package dao;
+package models.dao;
 
 import models.Note;
 import java.util.List;
+import java.util.Map;
 
 public interface NoteDao {
 
@@ -17,7 +18,7 @@ public interface NoteDao {
   List<Note> getAllNotesByHeading(String heading);
   List<Note> getAllNotesByHeadingAndUniversityId(String heading, int universityid);
   Note findById(int id);
-  List<Note> getFirstThreeNotes();
+  List<Map<String, Object>> getFirstThreeNotes();
 
   Note findStudentNotesByUnitId(int unitid);
   // List<Foodtype> getAllFoodtypesForARestaurant(int restaurantId);

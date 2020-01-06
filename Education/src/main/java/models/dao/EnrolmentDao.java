@@ -1,4 +1,4 @@
-package dao;
+package models.dao;
 
 import models.Enrolment;
 import java.util.List;
